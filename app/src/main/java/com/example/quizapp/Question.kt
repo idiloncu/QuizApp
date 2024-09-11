@@ -1,6 +1,6 @@
 package com.example.quizapp
 
-data class Questions(
+data class Question(
     val id:Int,
     val questions:String,
     val image:Int,

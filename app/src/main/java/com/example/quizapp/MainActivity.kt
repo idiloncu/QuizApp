@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         with(binding){
             btnStart.setOnClickListener {
-                if (loginName.text.toString().isEmpty()){
+                if (etName.text!!.isEmpty()){
                     Toast.makeText(this@MainActivity,"Please give a name",Toast.LENGTH_LONG).show()
                 }
                 else{
