@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizQuestionsActivity"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".QuizQuestionsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,50 +16,53 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/tv_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_question"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textSize="22sp"
             android:textColor="@color/gray"
-            tools:text="What country does this flag belongs to?"/>
+            android:textSize="22sp"
+            tools:text="What country does this flag belongs to?" />
+
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:contentDescription="Quiz Image"
-            tools:src="@drawable/ic_flag_of_germany"/>
+            tools:src="@drawable/ic_flag_of_germany" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ProgressBar
                 android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:max="9"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:minHeight="50dp"
                 android:indeterminate="false"
-                android:progress="0"/>
+                android:max="9"
+                android:minHeight="50dp"
+                android:progress="0" />
+
             <TextView
                 android:id="@+id/tv_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="15dp"
-                android:textSize="14sp"
-                android:text="0/9"/>
+                android:text="0/9"
+                android:textSize="14sp" />
 
-            
+
         </LinearLayout>
+
         <TextView
             android:id="@+id/tv_option_one"
             android:layout_width="match_parent"
@@ -67,10 +70,11 @@
             android:layout_margin="10dp"
             android:background="@drawable/default_option_border_bg"
             android:gravity="center"
-            android:textSize="18sp"
             android:padding="15dp"
             android:textColor="@color/gray"
-            tools:text="AAAA"/>
+            android:textSize="18sp"
+            tools:text="AAAA" />
+
         <TextView
             android:id="@+id/tv_option_two"
             android:layout_width="match_parent"
@@ -78,10 +82,11 @@
             android:layout_margin="10dp"
             android:background="@drawable/default_option_border_bg"
             android:gravity="center"
-            android:textSize="18sp"
             android:padding="15dp"
             android:textColor="@color/gray"
-            tools:text="AAAA"/>
+            android:textSize="18sp"
+            tools:text="AAAA" />
+
         <TextView
             android:id="@+id/tv_option_three"
             android:layout_width="match_parent"
@@ -89,10 +94,11 @@
             android:layout_margin="10dp"
             android:background="@drawable/default_option_border_bg"
             android:gravity="center"
-            android:textSize="18sp"
             android:padding="15dp"
             android:textColor="@color/gray"
-            tools:text="AAAA"/>
+            android:textSize="18sp"
+            tools:text="AAAA" />
+
         <TextView
             android:id="@+id/tv_option_four"
             android:layout_width="match_parent"
@@ -100,10 +106,11 @@
             android:layout_margin="10dp"
             android:background="@drawable/default_option_border_bg"
             android:gravity="center"
-            android:textSize="18sp"
             android:padding="15dp"
             android:textColor="@color/gray"
-            tools:text="AAAA"/>
+            android:textSize="18sp"
+            tools:text="AAAA" />
+
         <Button
             android:id="@+id/btn_submit"
             android:layout_width="match_parent"
@@ -113,8 +120,7 @@
             android:text="SUBMIT"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"/>
-
+            android:textStyle="bold" />
 
     </LinearLayout>
 

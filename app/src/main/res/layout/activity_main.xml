@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/name"
                     android:inputType="textCapWords"
-                    android:textColor="@color/gray" >
+                    android:textColor="@color/gray">
                 </androidx.appcompat.widget.AppCompatEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
