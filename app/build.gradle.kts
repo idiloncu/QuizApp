@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("com.google.devtools.ksp")
+
 }
 
 android {
@@ -39,6 +41,13 @@ android {
 }
 
 dependencies {
+    // Dagger Hilt
+    implementation(libs.google.dagger.hilt)
+    ksp(libs.google.dagger.hilt.compiler)
+    implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.retrofit2)
+    implementation(libs.squareup.okhttp3)
+    implementation(libs.squareup.okhttp3.logging.interceptor)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

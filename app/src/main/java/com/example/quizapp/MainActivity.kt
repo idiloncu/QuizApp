@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         with(binding) {
             btnStart.setOnClickListener {
-                if (etName.text!!.isEmpty()) {
+                if (etName.text!!.isEmpty() || etName.text.toString().trim().isEmpty() ) {
                     Toast.makeText(this@MainActivity, "Please give a name", Toast.LENGTH_LONG)
                         .show()
                 } else {
@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
+
         }
     }
 }
