@@ -43,12 +43,18 @@ android {
 dependencies {
     // Dagger Hilt
     implementation(libs.google.dagger.hilt)
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
+
     ksp(libs.google.dagger.hilt.compiler)
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.retrofit2)
     implementation(libs.squareup.okhttp3)
     implementation(libs.squareup.okhttp3.logging.interceptor)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

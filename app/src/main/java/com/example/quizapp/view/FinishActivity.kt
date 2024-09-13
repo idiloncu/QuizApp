@@ -1,9 +1,11 @@
-package com.example.quizapp
+package com.example.quizapp.view
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.quizapp.MainActivity
 import com.example.quizapp.databinding.ActivityFinishBinding
+import com.example.quizapp.model.Constants
 
 class FinishActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFinishBinding
