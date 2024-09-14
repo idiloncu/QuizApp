@@ -59,11 +59,15 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<CountryResponse>,response: Response<CountryResponse>) {
                 val countries = response.body()?.countries
                if(response.isSuccessful){
+                   val countryList = response.body()?.countries
                    response.body()?.let {
                        for(country in it.countries){
                            Log.i("country", "Name: ${country.name}, Flag: ${country.flag}")
                        }
                    }
+               }
+                else{
+                   Log.e("API Error", "Response Code: ${response.code()}")
                }
             }
 

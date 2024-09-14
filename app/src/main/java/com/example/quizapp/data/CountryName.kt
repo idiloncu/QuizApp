@@ -7,5 +7,5 @@ data class CountryName(
     val name:String,
 
     @SerializedName("flag")
-    val flag:Int
+    val flag:String
 )

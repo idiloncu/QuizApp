@@ -1,5 +1,6 @@
 package com.example.quizapp
 
+import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -69,7 +70,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
             val question = Question(
                 id =1,
-                image = country.flag.toString(),
+                flag = country.flag,
                 questions = "What country does this flag belong to?",
                 optionOne = options[0],
                 optionTwo = options[1],
@@ -92,8 +93,12 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         binding.tvOptionFour.text = question.optionFour
 
         Glide.with(this)
-            .load(question.image)
+            .`as`(PictureDrawable::class.java)
+            .load(question.flag)
+            .override(204,120)
+            .error(R.drawable.error_image)
             .into(binding.ivImage)
+
     }
         else{
             Log.e("Hata", "Soru listesi boş.")

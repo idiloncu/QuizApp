@@ -3,7 +3,7 @@ package com.example.quizapp.model
 data class Question(
     val id: Int,
     val questions: String,
-    val image: String,
+    val flag: String,
     val optionOne: String,
     val optionTwo: String,
     val optionThree: String,
