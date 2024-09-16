@@ -49,7 +49,10 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.github.bumptech.glide:okhttp3-integration:4.12.0")
-    implementation ("com.caverock:androidsvg:1.4")
+ //  implementation ("com.caverock:androidsvg:1.4")
+    implementation ("io.coil-kt:coil:2.7.0")
+    implementation ("io.coil-kt:coil-svg:2.7.0")
+
 
     ksp(libs.google.dagger.hilt.compiler)
     implementation(libs.squareup.retrofit)

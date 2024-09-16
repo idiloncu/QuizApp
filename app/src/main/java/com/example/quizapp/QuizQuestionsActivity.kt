@@ -1,12 +1,12 @@
 package com.example.quizapp
 
-import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
+import coil.decode.SvgDecoder
+import coil.load
 import com.example.quizapp.data.CountryName
 import com.example.quizapp.data.CountryResponse
 import com.example.quizapp.data.RestCountriesApi
@@ -26,6 +26,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityQuizQuestionsBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQuizQuestionsBinding.inflate(layoutInflater)
@@ -43,7 +44,10 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         val api = retrofit.create(RestCountriesApi::class.java)
         api.getAllCountries().enqueue(object : Callback<CountryResponse> {
-            override fun onResponse(call: Call<CountryResponse>, response: Response<CountryResponse>) {
+            override fun onResponse(
+                call: Call<CountryResponse>,
+                response: Response<CountryResponse>
+            ) {
                 val countries = response.body()?.countries
                 countries?.let {
                     prepareQuizQuestions(it)
@@ -64,12 +68,17 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         for (country in selectedCountries) {
             val wrongOptions = countries.filter { it.name != country.name }.shuffled().take(3)
 
-            val options = listOf(country.name, wrongOptions[0].name, wrongOptions[1].name, wrongOptions[2].name).shuffled()
+            val options = listOf(
+                country.name,
+                wrongOptions[0].name,
+                wrongOptions[1].name,
+                wrongOptions[2].name
+            ).shuffled()
 
             val correctAnswerIndex = options.indexOf(country.name) + 1
 
             val question = Question(
-                id =1,
+                id = 1,
                 flag = country.flag,
                 questions = "What country does this flag belong to?",
                 optionOne = options[0],
@@ -84,25 +93,37 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setQuestion() {
         if (mQuestionsList != null && mQuestionsList!!.isNotEmpty()) {
-        val question = mQuestionsList!![mCurrentPosition - 1]
-        defaultOptionsView()
-        binding.tvQuestion.text = question.questions
-        binding.tvOptionOne.text = question.optionOne
-        binding.tvOptionTwo.text = question.optionTwo
-        binding.tvOptionThree.text = question.optionThree
-        binding.tvOptionFour.text = question.optionFour
+            val question = mQuestionsList!![mCurrentPosition - 1]
+            defaultOptionsView()
+            binding.tvQuestion.text = question.questions
+            binding.tvOptionOne.text = question.optionOne
+            binding.tvOptionTwo.text = question.optionTwo
+            binding.tvOptionThree.text = question.optionThree
+            binding.tvOptionFour.text = question.optionFour
 
-        Glide.with(this)
-            .`as`(PictureDrawable::class.java)
-            .load(question.flag)
-            .override(204,120)
-            .error(R.drawable.error_image)
-            .into(binding.ivImage)
+            val flagUrl: String = question.flag
+            binding.ivImage.load(flagUrl) {
+                crossfade(true)
+                error(R.drawable.error_image) // Optional error image
+                decoderFactory(SvgDecoder.Factory())
+                listener(
+                    onSuccess = { _, _ -> Log.d("Coil", "Image loaded successfully") },
+                    onError = { _, result ->
+                        Log.e(
+                            "Coil",
+                            "Image load failed: ${result.throwable.message}"
+                        )
+                    }
+                )
+                size(204, 120)
+                build()
+            }
 
-    }
-        else{
+
+        } else {
             Log.e("Hata", "Soru listesi boş.")
         }
+
     }
 
 

@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val BASE_URL = "https://countriesnow.space/"
     private val TAG:String="CHECK_RESPONSE"
     private var countryList=ArrayList<CountryResponse>()
+    private var flagList=ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 val countries = response.body()?.countries
                if(response.isSuccessful){
                    val countryList = response.body()?.countries
+                   val flagList = response.body()?.flag
                    response.body()?.let {
                        for(country in it.countries){
                            Log.i("country", "Name: ${country.name}, Flag: ${country.flag}")
