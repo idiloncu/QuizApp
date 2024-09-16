@@ -15,10 +15,12 @@ class FinishActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.username.text = intent.getStringExtra(Constants.USER_NAME)
         val totalQuestions = intent.getIntExtra(Constants.TOTAL_QUESTIONS, 0)
         val correctAnswers = intent.getIntExtra(Constants.CORRECT_ANSWERS, 0)
-        binding.score.text = "Your score is $correctAnswers out of $totalQuestions"
+
+
+        binding.username.text = intent.getStringExtra(Constants.USER_NAME)
+        binding.score.text = " $correctAnswers / $totalQuestions"
         binding.btnFinish.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }

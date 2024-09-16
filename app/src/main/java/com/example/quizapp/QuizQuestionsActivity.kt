@@ -1,5 +1,6 @@
 package com.example.quizapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.quizapp.data.CountryResponse
 import com.example.quizapp.data.RestCountriesApi
 import com.example.quizapp.databinding.ActivityQuizQuestionsBinding
 import com.example.quizapp.model.Question
+import com.example.quizapp.view.FinishActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,9 +25,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var mQuestionsList: ArrayList<Question>? = null
     private var mSelectedOptionPosition: Int = 0
     private var mCorrectAnswers: Int = 0
-
     private lateinit var binding: ActivityQuizQuestionsBinding
-
+    private lateinit var intent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,14 +119,12 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 size(204, 120)
                 build()
             }
+            binding.progressBar.progress = mCurrentPosition - 1
+            binding.progressBar.max = mQuestionsList!!.size - 1
 
 
-        } else {
-            Log.e("Hata", "Soru listesi boş.")
         }
-
     }
-
 
     private fun defaultOptionsView() {
         val options = arrayListOf<TextView>(
@@ -171,6 +170,9 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
             mCurrentPosition++
             if (mCurrentPosition <= mQuestionsList!!.size) {
                 setQuestion()
+                binding.tvProgress.text = "$mCurrentPosition / ${mQuestionsList!!.size}"
+                binding.btnSubmit.text = "NEXT QUESTION"
+
             }
         } else {
             val question = mQuestionsList!![mCurrentPosition - 1]
@@ -181,12 +183,24 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
             }
             answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
 
+
             if (mCurrentPosition == mQuestionsList!!.size) {
                 binding.btnSubmit.text = "FINISH"
-            } else {
-                binding.btnSubmit.text = "NEXT QUESTION"
+
             }
+
             mSelectedOptionPosition = 0
+        }
+        binding.btnSubmit.setOnClickListener {
+            if (mCurrentPosition == mQuestionsList!!.size) {
+                val intent = Intent(this@QuizQuestionsActivity, FinishActivity::class.java)
+                intent.putExtra("CORRECT_ANSWERS", mCorrectAnswers)
+                intent.putExtra("TOTAL_QUESTIONS", mQuestionsList!!.size)
+                startActivity(intent)
+                finish()
+            } else {
+                handleSubmit()
+            }
         }
     }
 

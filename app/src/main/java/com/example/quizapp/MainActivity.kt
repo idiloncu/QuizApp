@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val BASE_URL = "https://countriesnow.space/"
     private val TAG:String="CHECK_RESPONSE"
-    private var countryList=ArrayList<CountryResponse>()
-    private var flagList=ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
