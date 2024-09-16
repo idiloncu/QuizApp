@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val BASE_URL = "https://countriesnow.space/"
-    private val TAG:String="CHECK_RESPONSE"
+    private val TAG: String = "CHECK_RESPONSE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         with(binding) {
             btnStart.setOnClickListener {
-                if (etName.text!!.isEmpty() || etName.text.toString().trim().isEmpty() ) {
+                if (etName.text!!.isEmpty() || etName.text.toString().trim().isEmpty()) {
                     Toast.makeText(this@MainActivity, "Please give a name", Toast.LENGTH_LONG)
                         .show()
                 } else {
@@ -47,32 +47,27 @@ class MainActivity : AppCompatActivity() {
             loadData()
         }
     }
-    private fun loadData(){
+
+    private fun loadData() {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(RestCountriesApi::class.java)
 
-        retrofit.getAllCountries().enqueue(object : Callback<CountryResponse>{
-            override fun onResponse(call: Call<CountryResponse>,response: Response<CountryResponse>) {
+        retrofit.getAllCountries().enqueue(object : Callback<CountryResponse> {
+            override fun onResponse(
+                call: Call<CountryResponse>,
+                response: Response<CountryResponse>
+            ) {
                 val countries = response.body()?.countries
-               if(response.isSuccessful){
-                   val countryList = response.body()?.countries
-                   val flagList = response.body()?.flag
-                   response.body()?.let {
-                       for(country in it.countries){
-                           Log.i("country", "Name: ${country.name}, Flag: ${country.flag}")
-                       }
-                   }
-               }
-                else{
-                   Log.e("API Error", "Response Code: ${response.code()}")
-               }
+                if (response.isSuccessful) {
+                    val countryList = response.body()?.countries
+                    val flagList = response.body()?.flag
+                }
             }
 
             override fun onFailure(call: Call<CountryResponse>, t: Throwable) {
-                Log.e(TAG, "API Failure: ${t.message}", t)
             }
         })
     }

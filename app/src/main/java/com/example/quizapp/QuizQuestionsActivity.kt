@@ -2,7 +2,6 @@ package com.example.quizapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +11,7 @@ import com.example.quizapp.data.CountryName
 import com.example.quizapp.data.CountryResponse
 import com.example.quizapp.data.RestCountriesApi
 import com.example.quizapp.databinding.ActivityQuizQuestionsBinding
+import com.example.quizapp.model.Constants
 import com.example.quizapp.model.Question
 import com.example.quizapp.view.FinishActivity
 import retrofit2.Call
@@ -57,14 +57,13 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onFailure(call: Call<CountryResponse>, t: Throwable) {
-                Log.e("API Error", t.message.toString())
             }
         })
     }
 
     private fun prepareQuizQuestions(countries: List<CountryName>) {
         mQuestionsList = ArrayList()
-        val selectedCountries = countries.shuffled().take(10) // Take 10 random countries
+        val selectedCountries = countries.shuffled().take(10)
 
         for (country in selectedCountries) {
             val wrongOptions = countries.filter { it.name != country.name }.shuffled().take(3)
@@ -105,24 +104,13 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
             val flagUrl: String = question.flag
             binding.ivImage.load(flagUrl) {
                 crossfade(true)
-                error(R.drawable.error_image) // Optional error image
+                error(R.drawable.error_image)
                 decoderFactory(SvgDecoder.Factory())
-                listener(
-                    onSuccess = { _, _ -> Log.d("Coil", "Image loaded successfully") },
-                    onError = { _, result ->
-                        Log.e(
-                            "Coil",
-                            "Image load failed: ${result.throwable.message}"
-                        )
-                    }
-                )
                 size(204, 120)
                 build()
             }
             binding.progressBar.progress = mCurrentPosition - 1
             binding.progressBar.max = mQuestionsList!!.size - 1
-
-
         }
     }
 
@@ -183,19 +171,16 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
             }
             answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
 
-
             if (mCurrentPosition == mQuestionsList!!.size) {
                 binding.btnSubmit.text = "FINISH"
-
             }
-
             mSelectedOptionPosition = 0
         }
         binding.btnSubmit.setOnClickListener {
             if (mCurrentPosition == mQuestionsList!!.size) {
                 val intent = Intent(this@QuizQuestionsActivity, FinishActivity::class.java)
-                intent.putExtra("CORRECT_ANSWERS", mCorrectAnswers)
-                intent.putExtra("TOTAL_QUESTIONS", mQuestionsList!!.size)
+                intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers)
+                intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionsList!!.size)
                 startActivity(intent)
                 finish()
             } else {
