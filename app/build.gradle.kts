@@ -53,7 +53,6 @@ dependencies {
     implementation ("io.coil-kt:coil:2.7.0")
     implementation ("io.coil-kt:coil-svg:2.7.0")
 
-
     ksp(libs.google.dagger.hilt.compiler)
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.retrofit2)
